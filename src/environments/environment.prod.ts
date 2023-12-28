@@ -1,7 +1,9 @@
 export const environment = {
   production: true,
-  username: 'davdifr',
-  apiUrls: {
-    github: 'https://api.github.com',
+  api: {
+    github: {
+      url: 'https://api.github.com',
+      username: 'davdifr',
+    },
   },
 };

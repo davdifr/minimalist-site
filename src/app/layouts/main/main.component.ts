@@ -7,7 +7,10 @@ import { LoggerService } from '../../shared/services/logger.service';
   selector: 'app-main-layout',
   standalone: true,
   imports: [NavbarComponent, RouterOutlet],
-  template: `<app-navbar></app-navbar> <router-outlet></router-outlet>`,
+  template: `<app-navbar></app-navbar>
+    <main id="content" role="main">
+      <router-outlet></router-outlet>
+    </main>`,
 })
 export class MainComponent {
   constructor(private loggerService: LoggerService) {}
