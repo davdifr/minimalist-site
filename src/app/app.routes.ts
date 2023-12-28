@@ -1,23 +1,49 @@
 import { Routes } from '@angular/router';
+import { MainComponent } from './layouts/main/main.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/about',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: MainComponent,
+    children: [
+      {
+        path: 'about',
+        loadComponent: () =>
+          import('./pages/about/about.component').then((c) => c.AboutComponent),
+        data: {
+          title: 'About',
+          showInNavbar: true,
+        },
+      },
+      {
+        path: 'projects',
+        loadComponent: () =>
+          import('./pages/projects/projects.component').then(
+            (c) => c.ProjectsComponent
+          ),
+        data: {
+          title: 'Projects',
+          showInNavbar: true,
+        },
+      },
+    ],
+  },
+  {
     path: '404',
-    loadComponent: () =>
-      import('./pages/not-found/not-found.component').then(
-        (m) => m.NotFoundComponent
-      ),
+    component: NotFoundComponent,
     data: {
       title: '404 - Not Found',
-      showInNavbar: true,
+      showInNavbar: false,
     },
   },
   {
     path: '**',
     redirectTo: '/404',
-    data: {
-      title: '404 - Not Found',
-      showInNavbar: false,
-    },
   },
 ];

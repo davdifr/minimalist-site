@@ -10,6 +10,8 @@ export class NavigationService {
   constructor(private router: Router) {}
 
   getNavigationRoutes(): Route[] {
-    return this.router.config.filter((route) => route.data?.['showInNavbar']);
+    return this.router.config
+      .flatMap((route) => [route, ...(route.children || [])])
+      .filter((route) => route.data?.['showInNavbar']);
   }
 }

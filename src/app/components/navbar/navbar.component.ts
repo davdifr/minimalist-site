@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { LoggerService } from '../../shared/services/logger.service';
 import { NavigationService } from '../../shared/services/navigation.service';
+import { printLog } from '../../shared/decorators/print-log.decorator';
 
 @Component({
   selector: 'app-navbar',
@@ -30,12 +31,16 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     this.loggerService.log('NavbarComponent initialized');
-
-    // Get the navigation routes from the NavigationService.
-    this.routes = this.navigationService.getNavigationRoutes();
+    this.routes = this.getRoutes();
   }
 
   ngOnDestroy(): void {
     this.loggerService.log('NavbarComponent destroyed');
+  }
+
+  // Get the navigation routes from the NavigationService.
+  @printLog
+  getRoutes(): Route[] {
+    return this.navigationService.getNavigationRoutes();
   }
 }
