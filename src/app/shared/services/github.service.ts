@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { GitHubRepositories, GitHubUser } from '../models/github.models';
+import { GitHubRepository, GitHubUser } from '../models/github.models';
 
 /**
  * Service for interacting with the GitHub API.
@@ -29,8 +29,8 @@ export class GitHubService {
    * Retrieves the repositories for the specified GitHub user.
    * @returns A promise that resolves with the repositories data.
    */
-  getRepositories(): Observable<GitHubRepositories[]> {
-    return this.httpService.get<GitHubRepositories[]>(
+  getRepositories(): Observable<GitHubRepository[]> {
+    return this.httpService.get<GitHubRepository[]>(
       `${this.apiUrl}/users/${this.username}/repos`
     );
   }

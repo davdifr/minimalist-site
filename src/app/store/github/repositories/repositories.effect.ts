@@ -8,22 +8,11 @@ import {
   fetchRepositoriesFailure,
   fetchRepositoriesSuccess,
 } from './repositories.actions';
-import { GitHubRepositories } from '../../../shared/models/github.models';
+import { GitHubRepository } from '../../../shared/models/github.models';
 import { Injectable } from '@angular/core';
 
-/**
- * Effects for GitHub repositories.
- * This class contains the effects for the GitHub repositories.
- */
 @Injectable()
 export class GitHubRepositoriesEffects {
-  /**
-   * Constructor for the GitHubRepositoriesEffects class.
-   * @param {Actions} actions$ - An Observable of actions provided by NgRx.
-   * @param {GitHubService} githubService - The service to fetch GitHub repositories.
-   * @param {LoggerService} loggerService - The service to log messages.
-   * @param {ErrorService} errorService - The service to handle errors.
-   */
   constructor(
     private actions$: Actions,
     private githubService: GitHubService,
@@ -42,18 +31,18 @@ export class GitHubRepositoriesEffects {
       ofType(fetchRepositories),
       switchMap(() => {
         this.loggerService.log(
-          'GitHubRepositoriesEffects.fetchGitHubRepositories$'
+          '[GitHub Repositories] Fetch Repositories effect triggered'
         );
         return this.githubService.getRepositories().pipe(
-          map((repositories: GitHubRepositories[]) => {
+          map((data: GitHubRepository[]) => {
             this.loggerService.log(
-              'GitHubRepositoriesEffects.fetchGitHubRepositories$ - success'
+              '[GitHub Repositories] Fetch Repositories effect completed successfully'
             );
-            return fetchRepositoriesSuccess({ repositories });
+            return fetchRepositoriesSuccess({ data });
           }),
           catchError((error: any) => {
             this.loggerService.error(
-              'GitHubRepositoriesEffects.fetchGitHubRepositories$ - error'
+              '[GitHub Repositories] Fetch Repositories effect failed'
             );
             this.errorService.handleError(error);
             return of(fetchRepositoriesFailure({ error }));

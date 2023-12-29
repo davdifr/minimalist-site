@@ -1,5 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { GitHubRepositories } from '../../../shared/models/github.models';
+import {
+  GitHubError,
+  GitHubRepository,
+} from '../../../shared/models/github.models';
 
 /**
  * Action to fetch GitHub repositories.
@@ -16,7 +19,7 @@ export const fetchRepositories = createAction(
  */
 export const fetchRepositoriesSuccess = createAction(
   '[GitHub Repositories] Fetch Repositories Success',
-  props<{ repositories: GitHubRepositories[] }>()
+  props<{ data: GitHubRepository[] }>()
 );
 
 /**
@@ -26,5 +29,5 @@ export const fetchRepositoriesSuccess = createAction(
  */
 export const fetchRepositoriesFailure = createAction(
   '[GitHub Repositories] Fetch Repositories Failure',
-  props<{ error: string }>()
+  props<{ error: GitHubError }>()
 );

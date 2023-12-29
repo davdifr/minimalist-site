@@ -11,12 +11,12 @@ export class ErrorService {
    * @param error - The HTTP error response.
    * @returns An Error object representing the error.
    */
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+  handleError(response: HttpErrorResponse) {
+    if (response.error instanceof ErrorEvent) {
+      console.error('An error occurred:', response.error.message);
     } else {
       console.error(
-        `Backend returned code ${error.status}, body was: ${error.error.message}`
+        `Backend returned code ${response.status}, body was: ${response.error.message}`
       );
     }
 

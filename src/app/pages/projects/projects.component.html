@@ -1,1 +1,14 @@
-<p>projects works!</p>
+<!-- Loading repositories -->
+@if (repositoriesIsLoading$ | async) {
+<p>Loading repositories...</p>
+}
+
+<!-- Error loading repositories -->
+@if ((repositoriesError$ | async); as error) {
+<p>Error while loading repositories: {{ error.status }}</p>
+}
+
+<!-- View repositories -->
+@for (repository of repositories$ | async; track $index) {
+<app-repository [repository]="repository"></app-repository>
+}

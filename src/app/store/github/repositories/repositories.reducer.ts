@@ -7,9 +7,9 @@ import {
 } from './repositories.actions';
 
 const initialState: GitHubRepositoriesState = {
-  repositories: [],
+  data: [],
   isLoading: false,
-  error: '',
+  error: null,
 };
 
 /**
@@ -23,10 +23,11 @@ export const githubRepositoriesReducer = createReducer(
   on(fetchRepositories, (state) => ({
     ...state,
     isLoading: true,
+    error: null,
   })),
-  on(fetchRepositoriesSuccess, (state, { repositories }) => ({
+  on(fetchRepositoriesSuccess, (state, { data }) => ({
     ...state,
-    repositories,
+    data,
     isLoading: false,
   })),
   on(fetchRepositoriesFailure, (state, { error }) => ({

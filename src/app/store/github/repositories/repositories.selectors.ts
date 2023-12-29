@@ -1,4 +1,7 @@
-import { GitHubRepositories } from '../../../shared/models/github.models';
+import {
+  GitHubError,
+  GitHubRepository,
+} from '../../../shared/models/github.models';
 import { AppState } from '../../app.state';
 
 /**
@@ -7,8 +10,8 @@ import { AppState } from '../../app.state';
  * @param {AppState} state - The state of the application.
  * @returns {GitHubRepositories[]} - An array of GitHubRepositories objects representing the repositories.
  */
-export const selectRepositories = (state: AppState): GitHubRepositories[] =>
-  state.githubRepositories.repositories;
+export const selectRepositories = (state: AppState): GitHubRepository[] =>
+  state.githubRepositories.data;
 
 /**
  * Selector for GitHub repositories error.
@@ -16,7 +19,7 @@ export const selectRepositories = (state: AppState): GitHubRepositories[] =>
  * @param {AppState} state - The state of the application.
  * @returns {string} - A string representing the error message.
  */
-export const selectRepositoriesError = (state: AppState): any =>
+export const selectRepositoriesError = (state: AppState): GitHubError | null =>
   state.githubRepositories.error;
 
 /**

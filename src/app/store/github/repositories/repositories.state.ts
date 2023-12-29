@@ -1,7 +1,10 @@
-import { GitHubRepositories } from '../../../shared/models/github.models';
+import {
+  GitHubError,
+  GitHubRepository,
+} from '../../../shared/models/github.models';
+import { RequestState } from '../../app.state';
 
-export interface GitHubRepositoriesState {
-  repositories: GitHubRepositories[];
-  isLoading: boolean;
-  error: string;
-}
+export type GitHubRepositoriesState = RequestState<
+  GitHubRepository[],
+  GitHubError
+>;

@@ -15,7 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(reducers),
     provideHttpClient(withInterceptors([preventDuplicateRequests])),
-    provideStore(),
     provideEffects(GitHubRepositoriesEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
