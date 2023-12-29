@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 
 /**
@@ -9,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
 
   /**
    * Sends a GET request to the specified URL.

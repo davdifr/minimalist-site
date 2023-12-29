@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpService } from './http.service';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
@@ -11,10 +11,10 @@ import { GitHubRepository, GitHubUser } from '../models/github.models';
   providedIn: 'root',
 })
 export class GitHubService {
+  http = inject(HttpService);
+
   username: string = environment.api.github.username;
   apiUrl: string = environment.api.github.url;
-
-  constructor(private httpService: HttpService) {}
 
   /**
    * Retrieves the specified GitHub user.
@@ -22,7 +22,7 @@ export class GitHubService {
    * @param username The GitHub username to retrieve.
    */
   getUser(username: string = this.username): Observable<GitHubUser> {
-    return this.httpService.get<GitHubUser>(`${this.apiUrl}/users/${username}`);
+    return this.http.get<GitHubUser>(`${this.apiUrl}/users/${username}`);
   }
 
   /**
@@ -30,7 +30,7 @@ export class GitHubService {
    * @returns A promise that resolves with the repositories data.
    */
   getRepositories(): Observable<GitHubRepository[]> {
-    return this.httpService.get<GitHubRepository[]>(
+    return this.http.get<GitHubRepository[]>(
       `${this.apiUrl}/users/${this.username}/repos`
     );
   }

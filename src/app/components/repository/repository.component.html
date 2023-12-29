@@ -1,3 +1,14 @@
-<p>{{ repository.name }}</p>
+@if (repository) {
+<p>
+  <a href="{{ repository.html_url }}">{{ repository.name }}</a>
+</p>
 <p>{{ repository.description }}</p>
+
+@if (repository.language; as language) {
+<p>language: {{ language }}</p>
+}
+
 <hr />
+} @else {
+<p>Repository not found.</p>
+}

@@ -9,5 +9,5 @@ import { GitHubRepository } from '../../shared/models/github.models';
   styleUrl: './repository.component.css',
 })
 export class RepositoryComponent {
-  @Input() repository!: GitHubRepository;
+  @Input() repository?: GitHubRepository;
 }

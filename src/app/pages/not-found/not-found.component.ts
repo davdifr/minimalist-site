@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoggerService } from '../../shared/services/logger.service';
 
 @Component({
@@ -9,12 +9,12 @@ import { LoggerService } from '../../shared/services/logger.service';
   template: `<h1>404 - Not Found</h1>`,
 })
 export class NotFoundComponent {
-  constructor(private loggerService: LoggerService) {}
+  logger = inject(LoggerService);
 
   ngOnInit(): void {
-    this.loggerService.log('NotFoundComponent initialized');
+    this.logger.log('NotFoundComponent initialized');
   }
   ngOnDestroy(): void {
-    this.loggerService.log('NotFoundComponent destroyed');
+    this.logger.log('NotFoundComponent destroyed');
   }
 }

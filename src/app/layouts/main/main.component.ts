@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 import { LoggerService } from '../../shared/services/logger.service';
@@ -13,12 +13,12 @@ import { LoggerService } from '../../shared/services/logger.service';
     </main>`,
 })
 export class MainComponent {
-  constructor(private loggerService: LoggerService) {}
+  logger = inject(LoggerService);
 
   ngOnInit() {
-    this.loggerService.log('MainLayoutComponent initialized');
+    this.logger.log('MainLayoutComponent initialized');
   }
   ngOnDestroy() {
-    this.loggerService.log('MainLayoutComponent destroyed');
+    this.logger.log('MainLayoutComponent destroyed');
   }
 }

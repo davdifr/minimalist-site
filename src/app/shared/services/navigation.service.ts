@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Route, Router } from '@angular/router';
 
 /**
@@ -7,7 +7,7 @@ import { Route, Router } from '@angular/router';
  */
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
-  constructor(private router: Router) {}
+  router = inject(Router);
 
   getNavigationRoutes(): Route[] {
     return this.router.config

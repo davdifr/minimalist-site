@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { LoggerService } from '../../shared/services/logger.service';
 import { NavigationService } from '../../shared/services/navigation.service';
@@ -22,25 +22,23 @@ import { printLog } from '../../shared/decorators/print-log.decorator';
   </nav>`,
 })
 export class NavbarComponent {
+  logger = inject(LoggerService);
+  navigation = inject(NavigationService);
+
   routes: Route[] = [];
 
-  constructor(
-    private navigationService: NavigationService,
-    private loggerService: LoggerService
-  ) {}
-
   ngOnInit(): void {
-    this.loggerService.log('NavbarComponent initialized');
+    this.logger.log('NavbarComponent initialized');
     this.routes = this.getRoutes();
   }
 
   ngOnDestroy(): void {
-    this.loggerService.log('NavbarComponent destroyed');
+    this.logger.log('NavbarComponent destroyed');
   }
 
   // Get the navigation routes from the NavigationService.
   @printLog
   getRoutes(): Route[] {
-    return this.navigationService.getNavigationRoutes();
+    return this.navigation.getNavigationRoutes();
   }
 }

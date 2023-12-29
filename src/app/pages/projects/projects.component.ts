@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoggerService } from '../../shared/services/logger.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
@@ -24,6 +24,9 @@ import { RepositoryComponent } from '../../components/repository/repository.comp
   styleUrl: './projects.component.css',
 })
 export class ProjectsComponent {
+  store = inject(Store<AppState>);
+  logger = inject(LoggerService);
+
   repositories$: Observable<GitHubRepository[]> =
     this.store.select(selectRepositories);
 
@@ -35,18 +38,13 @@ export class ProjectsComponent {
     selectRepositoriesLoading
   );
 
-  constructor(
-    private store: Store<AppState>,
-    private loggerService: LoggerService
-  ) {}
-
   ngOnInit(): void {
-    this.loggerService.log('ProjectsComponent initialized');
+    this.logger.log('ProjectsComponent initialized');
     this.fetchRepositories();
   }
 
   ngOnDestroy(): void {
-    this.loggerService.log('ProjectsComponent destroyed');
+    this.logger.log('ProjectsComponent destroyed');
   }
 
   fetchRepositories(): void {

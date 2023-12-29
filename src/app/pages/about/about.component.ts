@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LoggerService } from '../../shared/services/logger.service';
 
 @Component({
@@ -9,13 +9,13 @@ import { LoggerService } from '../../shared/services/logger.service';
   styleUrl: './about.component.css',
 })
 export class AboutComponent {
-  constructor(private loggerService: LoggerService) {}
+  logger = inject(LoggerService);
 
   ngOnInit(): void {
-    this.loggerService.log('AboutComponent initialized');
+    this.logger.log('AboutComponent initialized');
   }
 
   ngOnDestroy(): void {
-    this.loggerService.log('AboutComponent destroyed');
+    this.logger.log('AboutComponent destroyed');
   }
 }
