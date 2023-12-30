@@ -9,7 +9,7 @@ import { LoggerService } from '../../shared/services/logger.service';
   template: `<h1>404 - Not Found</h1>`,
 })
 export class NotFoundComponent {
-  logger = inject(LoggerService);
+  private logger = inject(LoggerService);
 
   ngOnInit(): void {
     this.logger.log('NotFoundComponent initialized');

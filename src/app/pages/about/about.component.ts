@@ -9,7 +9,7 @@ import { LoggerService } from '../../shared/services/logger.service';
   styleUrl: './about.component.css',
 })
 export class AboutComponent {
-  logger = inject(LoggerService);
+  private logger = inject(LoggerService);
 
   ngOnInit(): void {
     this.logger.log('AboutComponent initialized');

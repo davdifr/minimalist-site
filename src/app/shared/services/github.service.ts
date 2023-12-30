@@ -11,7 +11,7 @@ import { GitHubRepository, GitHubUser } from '../models/github.models';
   providedIn: 'root',
 })
 export class GitHubService {
-  http = inject(HttpService);
+  private http = inject(HttpService);
 
   username: string = environment.api.github.username;
   apiUrl: string = environment.api.github.url;

@@ -22,8 +22,8 @@ import { printLog } from '../../shared/decorators/print-log.decorator';
   </nav>`,
 })
 export class NavbarComponent {
-  logger = inject(LoggerService);
-  navigation = inject(NavigationService);
+  private logger = inject(LoggerService);
+  private navigation = inject(NavigationService);
 
   routes: Route[] = [];
 
@@ -38,7 +38,7 @@ export class NavbarComponent {
 
   // Get the navigation routes from the NavigationService.
   @printLog
-  getRoutes(): Route[] {
+  private getRoutes(): Route[] {
     return this.navigation.getNavigationRoutes();
   }
 }

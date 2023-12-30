@@ -24,8 +24,8 @@ import { RepositoryComponent } from '../../components/repository/repository.comp
   styleUrl: './projects.component.css',
 })
 export class ProjectsComponent {
-  store = inject(Store<AppState>);
-  logger = inject(LoggerService);
+  private store = inject(Store<AppState>);
+  private logger = inject(LoggerService);
 
   repositories$: Observable<GitHubRepository[]> =
     this.store.select(selectRepositories);
@@ -47,7 +47,7 @@ export class ProjectsComponent {
     this.logger.log('ProjectsComponent destroyed');
   }
 
-  fetchRepositories(): void {
+  private fetchRepositories(): void {
     this.store.dispatch(fetchRepositories());
   }
 }
