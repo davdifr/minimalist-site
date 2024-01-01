@@ -2,7 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpService } from './http.service';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { GitHubRepository, GitHubUser } from '../models/github.models';
+import {
+  GitHubReadme,
+  GitHubRepository,
+  GitHubUser,
+} from '../models/github.models';
 
 /**
  * Service for interacting with the GitHub API.
@@ -32,6 +36,21 @@ export class GitHubService {
   getRepositories(): Observable<GitHubRepository[]> {
     return this.http.get<GitHubRepository[]>(
       `${this.apiUrl}/users/${this.username}/repos`
+    );
+  }
+
+  /**
+   * Fetches the README.md file of a given repository.
+   *
+   * This function sends a GET request to the GitHub API to retrieve the README.md file of a repository.
+   * If no repository is provided, it defaults to the username stored in the service.
+   *
+   * @param {string} repository - The name of the repository from which to fetch the README.md file. Defaults to the username of the service.
+   * @returns {Observable<string>} An Observable that emits the content of the README.md file as a string.
+   */
+  getReadme(repository: string = this.username): Observable<GitHubReadme> {
+    return this.http.get<GitHubReadme>(
+      `${this.apiUrl}/repos/${this.username}/${repository}/contents/README.md`
     );
   }
 }

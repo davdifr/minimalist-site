@@ -7,6 +7,7 @@ import { ThemeService } from '../../shared/services/theme.service';
   imports: [],
   template: `
     <input
+      id="theme-toggle"
       type="checkbox"
       [checked]="isDarkThemeActive()"
       (change)="switchTheme()"

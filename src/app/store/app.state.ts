@@ -1,3 +1,4 @@
+import { GitHubReadmeState } from './github/readme/readme.state';
 import { GitHubRepositoriesState } from './github/repositories/repositories.state';
 
 /**
@@ -5,6 +6,7 @@ import { GitHubRepositoriesState } from './github/repositories/repositories.stat
  */
 export interface AppState {
   githubRepositories: GitHubRepositoriesState;
+  githubReadme: GitHubReadmeState;
 }
 
 /**
@@ -14,7 +16,7 @@ export interface AppState {
  * @template E The type of any error that might occur during the request.
  */
 export interface RequestState<T, E> {
-  data: T;
+  data: T | null;
   isLoading: boolean;
   error: E | null;
 }

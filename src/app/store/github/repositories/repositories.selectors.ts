@@ -10,8 +10,9 @@ import { AppState } from '../../app.state';
  * @param {AppState} state - The state of the application.
  * @returns {GitHubRepositories[]} - An array of GitHubRepositories objects representing the repositories.
  */
-export const selectRepositories = (state: AppState): GitHubRepository[] =>
-  state.githubRepositories.data;
+export const selectRepositories = (
+  state: AppState
+): GitHubRepository[] | null => state.githubRepositories.data;
 
 /**
  * Selector for GitHub repositories error.

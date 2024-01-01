@@ -27,7 +27,7 @@ export class ProjectsComponent {
   private store = inject(Store<AppState>);
   private logger = inject(LoggerService);
 
-  repositories$: Observable<GitHubRepository[]> =
+  repositories$: Observable<GitHubRepository[] | null> =
     this.store.select(selectRepositories);
 
   repositoriesError$: Observable<GitHubError | null> = this.store.select(

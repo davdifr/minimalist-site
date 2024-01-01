@@ -12,3 +12,8 @@ export interface GitHubError {
   status: number;
   message: string;
 }
+
+export interface GitHubReadme {
+  content: string;
+  encoding: string;
+}
