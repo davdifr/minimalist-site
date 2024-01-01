@@ -27,20 +27,16 @@ export class ProjectsComponent {
   private store = inject(Store<AppState>);
   private logger = inject(LoggerService);
 
-  repositories$: Observable<GitHubRepository[] | null> =
-    this.store.select(selectRepositories);
+  repositories$ = this.store.select(selectRepositories);
+  repositoriesError$ = this.store.select(selectRepositoriesError);
+  repositoriesIsLoading$ = this.store.select(selectRepositoriesLoading);
 
-  repositoriesError$: Observable<GitHubError | null> = this.store.select(
-    selectRepositoriesError
-  );
-
-  repositoriesIsLoading$: Observable<boolean> = this.store.select(
-    selectRepositoriesLoading
-  );
+  constructor() {
+    this.fetchRepositories();
+  }
 
   ngOnInit(): void {
     this.logger.log('ProjectsComponent initialized');
-    this.fetchRepositories();
   }
 
   ngOnDestroy(): void {

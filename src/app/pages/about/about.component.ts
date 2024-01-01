@@ -26,12 +26,19 @@ export class AboutComponent {
   readmeIsLoading$ = this.store.select(selectReadmeLoading);
   readmeError$ = this.store.select(selectReadmeError);
 
+  constructor() {
+    this.fetchReadme();
+  }
+
   ngOnInit(): void {
     this.logger.log('AboutComponent initialized');
-    this.store.dispatch(fetchReadme());
   }
 
   ngOnDestroy(): void {
     this.logger.log('AboutComponent destroyed');
+  }
+
+  private fetchReadme(): void {
+    this.store.dispatch(fetchReadme());
   }
 }

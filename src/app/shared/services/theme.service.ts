@@ -32,6 +32,7 @@ export class ThemeService {
     }
 
     const storedTheme = this.storage.getItem(storageKey);
+
     if (storedTheme) {
       this.themeSignal.update(() => storedTheme);
     }
