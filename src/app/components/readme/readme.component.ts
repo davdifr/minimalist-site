@@ -9,14 +9,12 @@ import { Base64Service } from '../../shared/services/base64.service';
   standalone: true,
   imports: [CommonModule, MarkdownPipe, SanitizePipe],
   styleUrl: './readme.component.css',
-  template: `<div
-    class="readme"
-    [innerHTML]="content | markdown | sanitize"
-  ></div>`,
+  template: ` <div [innerHTML]="content | markdown | sanitize"></div>`,
 })
 export class ReadmeComponent {
   private base64 = inject(Base64Service);
   @Input('encoded') encoded: string = '';
+
   content: string = '';
 
   ngOnInit() {

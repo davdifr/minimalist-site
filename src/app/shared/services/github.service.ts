@@ -50,7 +50,7 @@ export class GitHubService {
    */
   getReadme(repository: string = this.username): Observable<GitHubReadme> {
     return this.http.get<GitHubReadme>(
-      `${this.apiUrl}/repos/${this.username}/${repository}/contents/README.md`
+      `${this.apiUrl}/repos/${this.username}/${repository}/readme`
     );
   }
 }
