@@ -20,7 +20,7 @@ const queue: Map<string, Observable<HttpEvent<any>>> = new Map();
  * @param next - The next HTTP handler.
  * @returns An observable of the HTTP event.
  */
-const preventDuplicateRequests: HttpInterceptorFn = (
+export const preventDuplicateRequests: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
@@ -54,5 +54,3 @@ const preventDuplicateRequests: HttpInterceptorFn = (
 
   return sharedRequest;
 };
-
-export { preventDuplicateRequests };
