@@ -1,17 +1,14 @@
-<section aria-labelledby="about">
-  <h1 id="about">About</h1>
-  <!-- Loading -->
-  @if (readmeIsLoading$ | async) {
-  <p>Loading...</p>
-  }
+<!-- Loading -->
+@if (readmeIsLoading$ | async) {
+<p>Loading...</p>
+}
 
-  <!-- Error -->
-  @if ((readmeError$ | async); as error) {
-  <p>Error while loading: {{ error.status }}</p>
-  }
+<!-- Error -->
+@if ((readmeError$ | async); as error) {
+<p>Error while loading: {{ error.status }}</p>
+}
 
-  <!-- View -->
-  @if ((readme$ | async); as readme) {
-  <app-readme [encoded]="readme.content"></app-readme>
-  }
-</section>
+<!-- View -->
+@if ((readme$ | async); as readme) {
+<app-readme [encoded]="readme.content"></app-readme>
+}
