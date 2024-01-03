@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ViewEncapsulation, inject } from '@angular/core';
 import { LoggerService } from '../../shared/services/logger.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
@@ -17,6 +17,7 @@ import { ReadmeComponent } from '../../components/readme/readme.component';
   imports: [CommonModule, ReadmeComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class AboutComponent {
   private store = inject(Store<AppState>);
