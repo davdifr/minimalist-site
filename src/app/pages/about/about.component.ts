@@ -5,6 +5,7 @@ import { AppState } from '../../store/app.state';
 import { fetchReadme } from '../../store/github/readme/readme.actions';
 import {
   selectReadme,
+  selectReadmeAlreadyLoadedOnce,
   selectReadmeError,
   selectReadmeLoading,
 } from '../../store/github/readme/readme.selectors';
@@ -24,11 +25,16 @@ export class AboutComponent {
   private logger = inject(LoggerService);
 
   readme$ = this.store.select(selectReadme);
-  readmeIsLoading$ = this.store.select(selectReadmeLoading);
-  readmeError$ = this.store.select(selectReadmeError);
+  isLoading$ = this.store.select(selectReadmeLoading);
+  error$ = this.store.select(selectReadmeError);
+  alreadyLoadedOnce$ = this.store.select(selectReadmeAlreadyLoadedOnce);
 
   constructor() {
-    this.fetchReadme();
+    this.alreadyLoadedOnce$.subscribe((initialized) => {
+      if (!initialized) {
+        this.store.dispatch(fetchReadme());
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -37,9 +43,5 @@ export class AboutComponent {
 
   ngOnDestroy(): void {
     this.logger.log('AboutComponent destroyed');
-  }
-
-  private fetchReadme(): void {
-    this.store.dispatch(fetchReadme());
   }
 }

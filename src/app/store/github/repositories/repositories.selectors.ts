@@ -31,3 +31,6 @@ export const selectRepositoriesError = (state: AppState): GitHubError | null =>
  */
 export const selectRepositoriesLoading = (state: AppState): boolean =>
   state.githubRepositories.isLoading;
+
+export const selectRepositoriesAlreadyLoadedOnce = (state: AppState): boolean =>
+  state.githubRepositories.alreadyLoadedOnce;

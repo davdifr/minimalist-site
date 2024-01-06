@@ -1,10 +1,10 @@
 <!-- Loading -->
-@if (readmeIsLoading$ | async) {
+@if (isLoading$ | async) {
 <p>Loading...</p>
 }
 
 <!-- Error -->
-@if ((readmeError$ | async); as error) {
+@if ((error$ | async); as error) {
 <p>Error while loading: {{ error.status }}</p>
 }
 

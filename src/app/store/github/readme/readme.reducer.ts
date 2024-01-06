@@ -10,6 +10,7 @@ const initialState: GitHubReadmeState = {
   data: null,
   isLoading: false,
   error: null,
+  alreadyLoadedOnce: false,
 };
 
 export const githubReadmeReducer = createReducer(
@@ -23,6 +24,7 @@ export const githubReadmeReducer = createReducer(
     ...state,
     data,
     isLoading: false,
+    alreadyLoadedOnce: true,
   })),
   on(fetchReadmeFailure, (state, { error }) => ({
     ...state,

@@ -1,10 +1,10 @@
 <!-- Loading repositories -->
-@if (repositoriesIsLoading$ | async) {
+@if (isLoading$ | async) {
 <p>Loading repositories...</p>
 }
 
 <!-- Error loading repositories -->
-@if ((repositoriesError$ | async); as error) {
+@if ((error$ | async); as error) {
 <p>Error while loading repositories: {{ error.status }}</p>
 }
 

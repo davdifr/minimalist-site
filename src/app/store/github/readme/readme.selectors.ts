@@ -12,3 +12,6 @@ export const selectReadmeError = (state: AppState): GitHubError | null =>
 
 export const selectReadmeLoading = (state: AppState): boolean =>
   state.githubReadme.isLoading;
+
+export const selectReadmeAlreadyLoadedOnce = (state: AppState): boolean =>
+  state.githubReadme.alreadyLoadedOnce;

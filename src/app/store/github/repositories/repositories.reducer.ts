@@ -10,6 +10,7 @@ const initialState: GitHubRepositoriesState = {
   data: [],
   isLoading: false,
   error: null,
+  alreadyLoadedOnce: false,
 };
 
 /**
@@ -29,6 +30,7 @@ export const githubRepositoriesReducer = createReducer(
     ...state,
     data,
     isLoading: false,
+    alreadyLoadedOnce: true,
   })),
   on(fetchRepositoriesFailure, (state, { error }) => ({
     ...state,

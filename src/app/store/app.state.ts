@@ -19,4 +19,5 @@ export interface RequestState<T, E> {
   data: T | null;
   isLoading: boolean;
   error: E | null;
+  alreadyLoadedOnce: boolean;
 }
