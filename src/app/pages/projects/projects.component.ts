@@ -27,7 +27,7 @@ export class ProjectsComponent {
   isLoading$ = this.store.select(selectRepositoriesLoading);
   alreadyLoadedOnce$ = this.store.select(selectRepositoriesAlreadyLoadedOnce);
 
-  constructor() {
+  ngOnInit(): void {
     this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
         this.store.dispatch(fetchRepositories());

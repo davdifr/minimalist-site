@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { LoggerService } from '../../shared/services/logger.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { printLog } from '../../shared/decorators/print-log.decorator';
 
@@ -22,22 +21,14 @@ import { printLog } from '../../shared/decorators/print-log.decorator';
   </nav>`,
 })
 export class NavbarComponent {
-  private logger = inject(LoggerService);
   private navigation = inject(NavigationService);
-
   routes: Route[] = [];
 
   ngOnInit(): void {
-    this.logger.log('NavbarComponent initialized');
     this.routes = this.getRoutes();
   }
 
-  ngOnDestroy(): void {
-    this.logger.log('NavbarComponent destroyed');
-  }
-
-  // Get the navigation routes from the NavigationService.
-  @printLog
+  //@printLog
   private getRoutes(): Route[] {
     return this.navigation.getNavigationRoutes();
   }

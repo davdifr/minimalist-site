@@ -12,12 +12,12 @@ import { Base64Service } from '../../shared/services/base64.service';
   template: ` <div [innerHTML]="content | markdown | sanitize"></div>`,
 })
 export class ReadmeComponent {
-  private base64 = inject(Base64Service);
   @Input('encoded') encoded: string = '';
+  private base64 = inject(Base64Service);
 
   content: string = '';
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.content = this.base64.decode(this.encoded);
   }
 }

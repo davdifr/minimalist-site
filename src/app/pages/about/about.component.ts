@@ -28,7 +28,7 @@ export class AboutComponent {
   error$ = this.store.select(selectReadmeError);
   alreadyLoadedOnce$ = this.store.select(selectReadmeAlreadyLoadedOnce);
 
-  constructor() {
+  ngOnInit(): void {
     this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
         this.store.dispatch(fetchReadme());
