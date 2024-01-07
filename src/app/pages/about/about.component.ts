@@ -11,6 +11,7 @@ import {
 } from '../../store/github/readme/readme.selectors';
 import { CommonModule } from '@angular/common';
 import { ReadmeComponent } from '../../components/readme/readme.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-about',
@@ -30,7 +31,8 @@ export class AboutComponent {
   alreadyLoadedOnce$ = this.store.select(selectReadmeAlreadyLoadedOnce);
 
   constructor() {
-    this.alreadyLoadedOnce$.subscribe((initialized) => {
+    this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
+      console.log('initialized');
       if (!initialized) {
         this.store.dispatch(fetchReadme());
       }

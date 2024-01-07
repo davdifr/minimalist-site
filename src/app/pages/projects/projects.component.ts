@@ -11,6 +11,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { fetchRepositories } from '../../store/github/repositories/repositories.actions';
 import { RepositoryComponent } from '../../components/repository/repository.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -31,7 +32,7 @@ export class ProjectsComponent {
   ngOnInit(): void {
     this.logger.log('ProjectsComponent initialized');
 
-    this.alreadyLoadedOnce$.subscribe((initialized) => {
+    this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
         this.store.dispatch(fetchRepositories());
       }
