@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { LoggerService } from '../../shared/services/logger.service';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../shared/services/theme.service';
 
@@ -15,12 +14,4 @@ import { ThemeService } from '../../shared/services/theme.service';
 })
 export class NotFoundComponent {
   private theme = inject(ThemeService);
-  private logger = inject(LoggerService);
-
-  ngOnInit(): void {
-    this.logger.log('NotFoundComponent initialized');
-  }
-  ngOnDestroy(): void {
-    this.logger.log('NotFoundComponent destroyed');
-  }
 }

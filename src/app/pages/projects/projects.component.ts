@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { LoggerService } from '../../shared/services/logger.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import {
@@ -22,24 +21,17 @@ import { first } from 'rxjs';
 })
 export class ProjectsComponent {
   private store = inject(Store<AppState>);
-  private logger = inject(LoggerService);
 
   repositories$ = this.store.select(selectRepositories);
   error$ = this.store.select(selectRepositoriesError);
   isLoading$ = this.store.select(selectRepositoriesLoading);
   alreadyLoadedOnce$ = this.store.select(selectRepositoriesAlreadyLoadedOnce);
 
-  ngOnInit(): void {
-    this.logger.log('ProjectsComponent initialized');
-
+  constructor() {
     this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
         this.store.dispatch(fetchRepositories());
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.logger.log('ProjectsComponent destroyed');
   }
 }
