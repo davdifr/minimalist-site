@@ -12,10 +12,10 @@ import {
 import { GitHubReadme } from '../../../shared/models/github.models';
 
 export class GitHubReadmeEffects {
-  private action$ = inject(Actions);
-  private github = inject(GitHubService);
-  private logger = inject(LoggerService);
-  private error = inject(ErrorService);
+  private action$: Actions<any> = inject(Actions);
+  private github: GitHubService = inject(GitHubService);
+  private logger: LoggerService = inject(LoggerService);
+  private error: ErrorService = inject(ErrorService);
 
   fetchGitHubReadme$ = createEffect(() =>
     this.action$.pipe(

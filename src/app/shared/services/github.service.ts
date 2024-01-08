@@ -15,7 +15,7 @@ import {
   providedIn: 'root',
 })
 export class GitHubService {
-  private http = inject(HttpService);
+  private http: HttpService = inject(HttpService);
 
   username: string = environment.api.github.username;
   apiUrl: string = environment.api.github.url;

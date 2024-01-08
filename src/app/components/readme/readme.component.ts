@@ -11,8 +11,8 @@ import { Base64Service } from '../../shared/services/base64.service';
   styleUrl: './readme.component.css',
   template: ` <div [innerHTML]="content | markdown | sanitize"></div>`,
 })
-export class ReadmeComponent implements  OnInit{
-  @Input('encoded') encoded: string = '';
+export class ReadmeComponent implements OnInit {
+  @Input({ required: true }) encoded: string = '';
   private base64: Base64Service = inject(Base64Service);
 
   content: string = '';

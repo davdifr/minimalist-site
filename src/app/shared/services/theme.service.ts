@@ -1,4 +1,10 @@
-import { Injectable, effect, inject, signal } from '@angular/core';
+import {
+  Injectable,
+  WritableSignal,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { StorageService } from './storage.service';
 
 export const storageKey = 'theme';
@@ -7,12 +13,12 @@ export const storageKey = 'theme';
   providedIn: 'root',
 })
 export class ThemeService {
-  private storage = inject(StorageService);
-  themeSignal = signal<boolean>(false);
-  private path = '/assets/themes';
-  private stylesheet = document.getElementById(
+  private storage: StorageService = inject(StorageService);
+  themeSignal: WritableSignal<boolean> = signal<boolean>(false);
+  private path: string = '/assets/themes';
+  private stylesheet: HTMLLinkElement | null = document.getElementById(
     'theme'
-  ) as HTMLLinkElement | null;
+  ) as HTMLLinkElement;
 
   constructor() {
     this.initializeThemeFromPreferences();

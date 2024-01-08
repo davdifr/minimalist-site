@@ -7,7 +7,7 @@ import { printLog } from '../decorators/print-log.decorator';
   standalone: true,
 })
 export class SanitizePipe implements PipeTransform {
-  private sanitizer = inject(DomSanitizer);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
 
   // @printLog
   transform(value: string): SafeHtml {

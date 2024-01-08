@@ -13,10 +13,10 @@ import { Injectable, inject } from '@angular/core';
 
 @Injectable()
 export class GitHubRepositoriesEffects {
-  private actions$ = inject(Actions);
-  private github = inject(GitHubService);
-  private logger = inject(LoggerService);
-  private error = inject(ErrorService);
+  private actions$: Actions<any> = inject(Actions);
+  private github: GitHubService = inject(GitHubService);
+  private logger: LoggerService = inject(LoggerService);
+  private error: ErrorService = inject(ErrorService);
 
   /**
    * Effect to fetch GitHub repositories.

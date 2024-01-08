@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class ErrorService {
    * @param error - The HTTP error response.
    * @returns An Error object representing the error.
    */
-  handleError(response: HttpErrorResponse) {
+  handleError(response: HttpErrorResponse): Observable<never> {
     if (response.error instanceof ErrorEvent) {
       console.error('An error occurred:', response.error.message);
     } else {
