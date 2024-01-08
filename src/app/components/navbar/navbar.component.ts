@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { NavigationService } from '../../shared/services/navigation.service';
-import { printLog } from '../../shared/decorators/print-log.decorator';
 
 @Component({
   selector: 'app-navbar',
@@ -20,15 +19,14 @@ import { printLog } from '../../shared/decorators/print-log.decorator';
     </ul>
   </nav>`,
 })
-export class NavbarComponent {
-  private navigation = inject(NavigationService);
+export class NavbarComponent implements OnInit {
+  private navigation: NavigationService = inject(NavigationService);
   routes: Route[] = [];
 
   ngOnInit(): void {
     this.routes = this.getRoutes();
   }
 
-  //@printLog
   private getRoutes(): Route[] {
     return this.navigation.getNavigationRoutes();
   }

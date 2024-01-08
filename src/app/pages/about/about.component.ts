@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, inject } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import { fetchReadme } from '../../store/github/readme/readme.actions';
@@ -10,7 +10,8 @@ import {
 } from '../../store/github/readme/readme.selectors';
 import { CommonModule } from '@angular/common';
 import { ReadmeComponent } from '../../components/readme/readme.component';
-import { first } from 'rxjs';
+import { Observable, first } from 'rxjs';
+import { GitHubError, GitHubReadme } from '../../shared/models/github.models';
 
 @Component({
   selector: 'app-about',
@@ -20,13 +21,15 @@ import { first } from 'rxjs';
   styleUrl: './about.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class AboutComponent {
-  private store = inject(Store<AppState>);
+export class AboutComponent implements OnInit {
+  private store: Store<AppState> = inject(Store<AppState>);
 
-  readme$ = this.store.select(selectReadme);
-  isLoading$ = this.store.select(selectReadmeLoading);
-  error$ = this.store.select(selectReadmeError);
-  alreadyLoadedOnce$ = this.store.select(selectReadmeAlreadyLoadedOnce);
+  readme$: Observable<GitHubReadme | null> = this.store.select(selectReadme);
+  error$: Observable<GitHubError | null> = this.store.select(selectReadmeError);
+  isLoading$: Observable<boolean> = this.store.select(selectReadmeLoading);
+  alreadyLoadedOnce$: Observable<boolean> = this.store.select(
+    selectReadmeAlreadyLoadedOnce
+  );
 
   ngOnInit(): void {
     this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {

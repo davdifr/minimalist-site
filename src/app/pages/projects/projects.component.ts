@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import {
@@ -10,7 +10,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { fetchRepositories } from '../../store/github/repositories/repositories.actions';
 import { RepositoryComponent } from '../../components/repository/repository.component';
-import { first } from 'rxjs';
+import {first, Observable} from 'rxjs';
+import {GitHubError, GitHubRepository} from "../../shared/models/github.models";
 
 @Component({
   selector: 'app-projects',
@@ -19,13 +20,13 @@ import { first } from 'rxjs';
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css',
 })
-export class ProjectsComponent {
-  private store = inject(Store<AppState>);
+export class ProjectsComponent implements OnInit {
+  private store: Store<AppState> = inject(Store<AppState>);
 
-  repositories$ = this.store.select(selectRepositories);
-  error$ = this.store.select(selectRepositoriesError);
-  isLoading$ = this.store.select(selectRepositoriesLoading);
-  alreadyLoadedOnce$ = this.store.select(selectRepositoriesAlreadyLoadedOnce);
+  repositories$: Observable<GitHubRepository[] | null> = this.store.select(selectRepositories);
+  error$: Observable<GitHubError | null> = this.store.select(selectRepositoriesError);
+  isLoading$: Observable<boolean> = this.store.select(selectRepositoriesLoading);
+  alreadyLoadedOnce$: Observable<boolean> = this.store.select(selectRepositoriesAlreadyLoadedOnce);
 
   ngOnInit(): void {
     this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {

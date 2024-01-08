@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ThemeService } from '../../shared/services/theme.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { ThemeService } from '../../shared/services/theme.service';
   `,
 })
 export class ThemeToggleComponent {
-  private theme = inject(ThemeService);
+  private theme: ThemeService = inject(ThemeService);
 
   switchTheme(): void {
     this.theme.toggleTheme();
