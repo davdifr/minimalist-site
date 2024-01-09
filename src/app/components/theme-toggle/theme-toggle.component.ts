@@ -23,7 +23,7 @@ export class ThemeToggleComponent {
   }
 
   isDarkThemeActive(): boolean {
-    return this.#theme.themeSignal();
+    return this.#theme.isDarkThemeActive();
   }
 
   getThemeToggleLabel(): string {

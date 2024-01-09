@@ -1,11 +1,4 @@
-import {
-  Injectable,
-  WritableSignal,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
-import { StorageService } from './storage.service';
+import { Injectable, WritableSignal, effect, signal } from '@angular/core';
 
 export const storageKey = 'theme';
 
@@ -13,13 +6,12 @@ export const storageKey = 'theme';
   providedIn: 'root',
 })
 export class ThemeService {
-  #storage: StorageService = inject(StorageService);
   #path: string = '/assets/themes';
   #stylesheet: HTMLLinkElement | null = document.getElementById(
     'theme'
   ) as HTMLLinkElement;
 
-  themeSignal: WritableSignal<boolean> = signal<boolean>(false);
+  themeSignal: WritableSignal<string> = signal<string>('light');
 
   constructor() {
     this.initializeThemeFromPreferences();
@@ -30,7 +22,9 @@ export class ThemeService {
   }
 
   toggleTheme(): void {
-    this.themeSignal.update((prev) => !prev);
+    this.themeSignal.update((prev) =>
+      this.isDarkThemeActive() ? 'light' : 'dark'
+    );
   }
 
   private initializeThemeFromPreferences(): void {
@@ -38,7 +32,7 @@ export class ThemeService {
       this.initializeStylesheet();
     }
 
-    const storedTheme = this.#storage.getItem(storageKey);
+    const storedTheme = localStorage.getItem(storageKey);
 
     if (storedTheme) {
       this.themeSignal.update(() => storedTheme);
@@ -53,19 +47,19 @@ export class ThemeService {
     document.head.appendChild(this.#stylesheet);
   }
 
-  getThemeName(): string {
-    return this.themeSignal() ? 'dark' : 'light';
+  getToggleLabel(): string {
+    return `Switch to ${this.isDarkThemeActive() ? 'light' : 'dark'} mode`;
   }
 
-  getToggleLabel(): string {
-    return `Switch to ${this.themeSignal() ? 'light' : 'dark'} mode`;
+  isDarkThemeActive(): boolean {
+    return this.themeSignal() === 'dark' ? true : false;
   }
 
   private updateRenderedTheme(): void {
     if (this.#stylesheet) {
-      this.#stylesheet.href = `${this.#path}/${this.getThemeName()}.css`;
+      this.#stylesheet.href = `${this.#path}/${this.themeSignal()}.css`;
     }
 
-    this.#storage.setItem(storageKey, this.themeSignal());
+    localStorage.setItem(storageKey, this.themeSignal());
   }
 }
