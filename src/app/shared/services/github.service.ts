@@ -16,26 +16,27 @@ import {
 })
 export class GitHubService {
   #http: HttpService = inject(HttpService);
-
-  username: string = environment.api.github.username;
-  apiUrl: string = environment.api.github.url;
+  #username: string = environment.api.github.username;
+  #apiUrl: string = environment.api.github.url;
 
   /**
    * Retrieves the specified GitHub user.
    * @returns A promise that resolves with the user data.
    * @param username The GitHub username to retrieve.
    */
-  getUser(username: string = this.username): Observable<GitHubUser> {
-    return this.#http.get<GitHubUser>(`${this.apiUrl}/users/${username}`);
+  getUser(username: string = this.#username): Observable<GitHubUser> {
+    return this.#http.get<GitHubUser>(`${this.#apiUrl}/users/${username}`);
   }
 
   /**
    * Retrieves the repositories for the specified GitHub user.
    * @returns A promise that resolves with the repositories data.
    */
-  getRepositories(): Observable<GitHubRepository[]> {
+  getRepositories(
+    username: string = this.#username
+  ): Observable<GitHubRepository[]> {
     return this.#http.get<GitHubRepository[]>(
-      `${this.apiUrl}/users/${this.username}/repos`
+      `${this.#apiUrl}/users/${username}/repos`
     );
   }
 
@@ -48,9 +49,9 @@ export class GitHubService {
    * @param {string} repository - The name of the repository from which to fetch the README.md file. Defaults to the username of the service.
    * @returns {Observable<string>} An Observable that emits the content of the README.md file as a string.
    */
-  getReadme(repository: string = this.username): Observable<GitHubReadme> {
+  getReadme(repository: string = this.#username): Observable<GitHubReadme> {
     return this.#http.get<GitHubReadme>(
-      `${this.apiUrl}/repos/${this.username}/${repository}/readme`
+      `${this.#apiUrl}/repos/${this.#username}/${repository}/readme`
     );
   }
 }
