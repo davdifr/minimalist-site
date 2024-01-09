@@ -15,7 +15,7 @@ import {
   providedIn: 'root',
 })
 export class GitHubService {
-  private http: HttpService = inject(HttpService);
+  #http: HttpService = inject(HttpService);
 
   username: string = environment.api.github.username;
   apiUrl: string = environment.api.github.url;
@@ -26,7 +26,7 @@ export class GitHubService {
    * @param username The GitHub username to retrieve.
    */
   getUser(username: string = this.username): Observable<GitHubUser> {
-    return this.http.get<GitHubUser>(`${this.apiUrl}/users/${username}`);
+    return this.#http.get<GitHubUser>(`${this.apiUrl}/users/${username}`);
   }
 
   /**
@@ -34,7 +34,7 @@ export class GitHubService {
    * @returns A promise that resolves with the repositories data.
    */
   getRepositories(): Observable<GitHubRepository[]> {
-    return this.http.get<GitHubRepository[]>(
+    return this.#http.get<GitHubRepository[]>(
       `${this.apiUrl}/users/${this.username}/repos`
     );
   }
@@ -49,7 +49,7 @@ export class GitHubService {
    * @returns {Observable<string>} An Observable that emits the content of the README.md file as a string.
    */
   getReadme(repository: string = this.username): Observable<GitHubReadme> {
-    return this.http.get<GitHubReadme>(
+    return this.#http.get<GitHubReadme>(
       `${this.apiUrl}/repos/${this.username}/${repository}/readme`
     );
   }

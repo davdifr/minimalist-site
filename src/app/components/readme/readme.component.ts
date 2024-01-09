@@ -13,11 +13,11 @@ import { Base64Service } from '../../shared/services/base64.service';
 })
 export class ReadmeComponent implements OnInit {
   @Input({ required: true }) encoded: string = '';
-  private base64: Base64Service = inject(Base64Service);
+  #base64: Base64Service = inject(Base64Service);
 
   content: string = '';
 
   ngOnInit(): void {
-    this.content = this.base64.decode(this.encoded);
+    this.content = this.#base64.decode(this.encoded);
   }
 }

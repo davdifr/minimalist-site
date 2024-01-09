@@ -10,8 +10,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { fetchRepositories } from '../../store/github/repositories/repositories.actions';
 import { RepositoryComponent } from '../../components/repository/repository.component';
-import {first, Observable} from 'rxjs';
-import {GitHubError, GitHubRepository} from "../../shared/models/github.models";
+import { first, Observable } from 'rxjs';
+import {
+  GitHubError,
+  GitHubRepository,
+} from '../../shared/models/github.models';
 
 @Component({
   selector: 'app-projects',
@@ -21,17 +24,24 @@ import {GitHubError, GitHubRepository} from "../../shared/models/github.models";
   styleUrl: './projects.component.css',
 })
 export class ProjectsComponent implements OnInit {
-  private store: Store<AppState> = inject(Store<AppState>);
+  #store: Store<AppState> = inject(Store<AppState>);
+  #alreadyLoadedOnce$: Observable<boolean> = this.#store.select(
+    selectRepositoriesAlreadyLoadedOnce
+  );
 
-  repositories$: Observable<GitHubRepository[] | null> = this.store.select(selectRepositories);
-  error$: Observable<GitHubError | null> = this.store.select(selectRepositoriesError);
-  isLoading$: Observable<boolean> = this.store.select(selectRepositoriesLoading);
-  alreadyLoadedOnce$: Observable<boolean> = this.store.select(selectRepositoriesAlreadyLoadedOnce);
+  repositories$: Observable<GitHubRepository[] | null> =
+    this.#store.select(selectRepositories);
+  isLoading$: Observable<boolean> = this.#store.select(
+    selectRepositoriesLoading
+  );
+  error$: Observable<GitHubError | null> = this.#store.select(
+    selectRepositoriesError
+  );
 
   ngOnInit(): void {
-    this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
+    this.#alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
-        this.store.dispatch(fetchRepositories());
+        this.#store.dispatch(fetchRepositories());
       }
     });
   }

@@ -13,5 +13,5 @@ import { ThemeService } from '../../shared/services/theme.service';
     </p>`,
 })
 export class NotFoundComponent {
-  private theme: ThemeService = inject(ThemeService);
+  #theme: ThemeService = inject(ThemeService);
 }

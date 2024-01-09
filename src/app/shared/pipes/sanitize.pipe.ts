@@ -7,11 +7,11 @@ import { printLog } from '../decorators/print-log.decorator';
   standalone: true,
 })
 export class SanitizePipe implements PipeTransform {
-  private sanitizer: DomSanitizer = inject(DomSanitizer);
+  #sanitizer: DomSanitizer = inject(DomSanitizer);
 
   // @printLog
   transform(value: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(value);
+    return this.#sanitizer.bypassSecurityTrustHtml(value);
     // const sanitizedContent = this.sanitizer.sanitize(
     //   SecurityContext.HTML,
     //   value

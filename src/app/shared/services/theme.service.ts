@@ -13,12 +13,13 @@ export const storageKey = 'theme';
   providedIn: 'root',
 })
 export class ThemeService {
-  private storage: StorageService = inject(StorageService);
-  themeSignal: WritableSignal<boolean> = signal<boolean>(false);
-  private path: string = '/assets/themes';
-  private stylesheet: HTMLLinkElement | null = document.getElementById(
+  #storage: StorageService = inject(StorageService);
+  #path: string = '/assets/themes';
+  #stylesheet: HTMLLinkElement | null = document.getElementById(
     'theme'
   ) as HTMLLinkElement;
+
+  themeSignal: WritableSignal<boolean> = signal<boolean>(false);
 
   constructor() {
     this.initializeThemeFromPreferences();
@@ -33,11 +34,11 @@ export class ThemeService {
   }
 
   private initializeThemeFromPreferences(): void {
-    if (!this.stylesheet) {
+    if (!this.#stylesheet) {
       this.initializeStylesheet();
     }
 
-    const storedTheme = this.storage.getItem(storageKey);
+    const storedTheme = this.#storage.getItem(storageKey);
 
     if (storedTheme) {
       this.themeSignal.update(() => storedTheme);
@@ -45,11 +46,11 @@ export class ThemeService {
   }
 
   private initializeStylesheet(): void {
-    this.stylesheet = document.createElement('link');
-    this.stylesheet.id = 'theme';
-    this.stylesheet.rel = 'stylesheet';
+    this.#stylesheet = document.createElement('link');
+    this.#stylesheet.id = 'theme';
+    this.#stylesheet.rel = 'stylesheet';
 
-    document.head.appendChild(this.stylesheet);
+    document.head.appendChild(this.#stylesheet);
   }
 
   getThemeName(): string {
@@ -61,10 +62,10 @@ export class ThemeService {
   }
 
   private updateRenderedTheme(): void {
-    if (this.stylesheet) {
-      this.stylesheet.href = `${this.path}/${this.getThemeName()}.css`;
+    if (this.#stylesheet) {
+      this.#stylesheet.href = `${this.#path}/${this.getThemeName()}.css`;
     }
 
-    this.storage.setItem(storageKey, this.themeSignal());
+    this.#storage.setItem(storageKey, this.themeSignal());
   }
 }

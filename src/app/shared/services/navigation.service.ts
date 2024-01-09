@@ -7,10 +7,10 @@ import { Route, Router } from '@angular/router';
  */
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
-  private router: Router = inject(Router);
+  #router: Router = inject(Router);
 
   getNavigationRoutes(): Route[] {
-    return this.router.config
+    return this.#router.config
       .flatMap((route) => [route, ...(route.children || [])])
       .filter((route) => route.data?.['showInNavbar']);
   }

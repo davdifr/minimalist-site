@@ -16,17 +16,17 @@ import { ThemeService } from '../../shared/services/theme.service';
   `,
 })
 export class ThemeToggleComponent {
-  private theme: ThemeService = inject(ThemeService);
+  #theme: ThemeService = inject(ThemeService);
 
   switchTheme(): void {
-    this.theme.toggleTheme();
+    this.#theme.toggleTheme();
   }
 
   isDarkThemeActive(): boolean {
-    return this.theme.themeSignal();
+    return this.#theme.themeSignal();
   }
 
   getThemeToggleLabel(): string {
-    return this.theme.getToggleLabel();
+    return this.#theme.getToggleLabel();
   }
 }

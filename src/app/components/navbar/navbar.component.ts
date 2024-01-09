@@ -20,7 +20,7 @@ import { NavigationService } from '../../shared/services/navigation.service';
   </nav>`,
 })
 export class NavbarComponent implements OnInit {
-  private navigation: NavigationService = inject(NavigationService);
+  #navigation: NavigationService = inject(NavigationService);
   routes: Route[] = [];
 
   ngOnInit(): void {
@@ -28,6 +28,6 @@ export class NavbarComponent implements OnInit {
   }
 
   private getRoutes(): Route[] {
-    return this.navigation.getNavigationRoutes();
+    return this.#navigation.getNavigationRoutes();
   }
 }

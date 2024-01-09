@@ -9,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpService {
-  private http: HttpClient = inject(HttpClient);
+  #http: HttpClient = inject(HttpClient);
 
   /**
    * Sends a GET request to the specified URL.
@@ -18,7 +18,7 @@ export class HttpService {
    * @returns An Observable that emits the response data of type T.
    */
   get<T>(url: string, params?: any): Observable<T> {
-    return this.http.get<T>(url, { params });
+    return this.#http.get<T>(url, { params });
   }
 
   /**
@@ -28,7 +28,7 @@ export class HttpService {
    * @returns An Observable that emits the response data.
    */
   post<T>(url: string, body: any): Observable<T> {
-    return this.http.post<T>(url, body);
+    return this.#http.post<T>(url, body);
   }
 
   /**
@@ -38,7 +38,7 @@ export class HttpService {
    * @returns An Observable that emits the response data.
    */
   put<T>(url: string, body: any): Observable<T> {
-    return this.http.put<T>(url, body);
+    return this.#http.put<T>(url, body);
   }
 
   /**
@@ -47,6 +47,6 @@ export class HttpService {
    * @returns An Observable that emits the response data.
    */
   delete<T>(url: string): Observable<T> {
-    return this.http.delete<T>(url);
+    return this.#http.delete<T>(url);
   }
 }

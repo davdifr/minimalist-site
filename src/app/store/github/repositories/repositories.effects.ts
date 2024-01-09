@@ -13,10 +13,10 @@ import { Injectable, inject } from '@angular/core';
 
 @Injectable()
 export class GitHubRepositoriesEffects {
-  private actions$: Actions<any> = inject(Actions);
-  private github: GitHubService = inject(GitHubService);
-  private logger: LoggerService = inject(LoggerService);
-  private error: ErrorService = inject(ErrorService);
+  #actions$: Actions<any> = inject(Actions);
+  #github: GitHubService = inject(GitHubService);
+  #logger: LoggerService = inject(LoggerService);
+  #error: ErrorService = inject(ErrorService);
 
   /**
    * Effect to fetch GitHub repositories.
@@ -25,24 +25,24 @@ export class GitHubRepositoriesEffects {
    * and dispatches the fetchRepositoriesFailure action if the operation fails.
    */
   fetchGitHubRepositories$ = createEffect(() =>
-    this.actions$.pipe(
+    this.#actions$.pipe(
       ofType(fetchRepositories),
       switchMap(() => {
-        this.logger.log(
+        this.#logger.log(
           '[GitHub Repositories] Fetch Repositories effect triggered'
         );
-        return this.github.getRepositories().pipe(
+        return this.#github.getRepositories().pipe(
           map((data: GitHubRepository[]) => {
-            this.logger.log(
+            this.#logger.log(
               '[GitHub Repositories] Fetch Repositories effect completed successfully'
             );
             return fetchRepositoriesSuccess({ data });
           }),
           catchError((error: any) => {
-            this.logger.error(
+            this.#logger.error(
               '[GitHub Repositories] Fetch Repositories effect failed'
             );
-            this.error.handleError(error);
+            this.#error.handleError(error);
             return of(fetchRepositoriesFailure({ error }));
           })
         );

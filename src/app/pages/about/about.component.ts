@@ -22,19 +22,20 @@ import { GitHubError, GitHubReadme } from '../../shared/models/github.models';
   encapsulation: ViewEncapsulation.None,
 })
 export class AboutComponent implements OnInit {
-  private store: Store<AppState> = inject(Store<AppState>);
-
-  readme$: Observable<GitHubReadme | null> = this.store.select(selectReadme);
-  error$: Observable<GitHubError | null> = this.store.select(selectReadmeError);
-  isLoading$: Observable<boolean> = this.store.select(selectReadmeLoading);
-  alreadyLoadedOnce$: Observable<boolean> = this.store.select(
+  #store: Store<AppState> = inject(Store<AppState>);
+  #alreadyLoadedOnce$: Observable<boolean> = this.#store.select(
     selectReadmeAlreadyLoadedOnce
   );
 
+  readme$: Observable<GitHubReadme | null> = this.#store.select(selectReadme);
+  isLoading$: Observable<boolean> = this.#store.select(selectReadmeLoading);
+  error$: Observable<GitHubError | null> =
+    this.#store.select(selectReadmeError);
+
   ngOnInit(): void {
-    this.alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
+    this.#alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
-        this.store.dispatch(fetchReadme());
+        this.#store.dispatch(fetchReadme());
       }
     });
   }
