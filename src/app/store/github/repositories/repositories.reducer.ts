@@ -30,6 +30,7 @@ export const githubRepositoriesReducer = createReducer(
     ...state,
     data,
     isLoading: false,
+    error: null,
     alreadyLoadedOnce: true,
   })),
   on(fetchRepositoriesFailure, (state, { error }) => ({

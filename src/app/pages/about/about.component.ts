@@ -33,6 +33,10 @@ export class AboutComponent implements OnInit {
     this.#store.select(selectReadmeError);
 
   ngOnInit(): void {
+    this.fethReadme();
+  }
+
+  private fethReadme(): void {
     this.#alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
         this.#store.dispatch(fetchReadme());

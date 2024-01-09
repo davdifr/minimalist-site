@@ -12,3 +12,5 @@
 @for (repository of repositories$ | async; track $index) {
 <app-repository [repository]="repository"></app-repository>
 }
+
+<ng-container #retryComponent></ng-container>
