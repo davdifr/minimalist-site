@@ -6,11 +6,11 @@
 <!-- Error loading repositories -->
 @if ((error$ | async); as error) {
 <p>Error while loading repositories: {{ error.status }}</p>
-}
+@defer (on timer(2s)) {
+<app-retry (retry)="fetchRepositories()"></app-retry>
+} }
 
 <!-- View repositories -->
 @for (repository of repositories$ | async; track $index) {
 <app-repository [repository]="repository"></app-repository>
 }
-
-<ng-container #retryComponent></ng-container>

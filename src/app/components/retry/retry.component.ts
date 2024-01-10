@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-retry',

@@ -12,11 +12,12 @@ import { CommonModule } from '@angular/common';
 import { ReadmeComponent } from '../../components/readme/readme.component';
 import { Observable, first } from 'rxjs';
 import { GitHubError, GitHubReadme } from '../../shared/models/github.models';
+import { RetryComponent } from '../../components/retry/retry.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, ReadmeComponent],
+  imports: [CommonModule, ReadmeComponent, RetryComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -33,10 +34,10 @@ export class AboutComponent implements OnInit {
     this.#store.select(selectReadmeError);
 
   ngOnInit(): void {
-    this.fethReadme();
+    this.fetchReadme();
   }
 
-  private fethReadme(): void {
+  fetchReadme(): void {
     this.#alreadyLoadedOnce$.pipe(first()).subscribe((initialized) => {
       if (!initialized) {
         this.#store.dispatch(fetchReadme());

@@ -6,7 +6,9 @@
 <!-- Error -->
 @if ((error$ | async); as error) {
 <p>Error while loading: {{ error.status }}</p>
-}
+@defer (on timer(2s)) {
+<app-retry (retry)="fetchReadme()"></app-retry>
+} }
 
 <!-- View -->
 @if ((readme$ | async); as readme) {
