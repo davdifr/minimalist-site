@@ -13,7 +13,7 @@ import { Base64Service } from '../../shared/services/base64.service';
 })
 export class ReadmeComponent implements OnInit {
   @Input({ required: true }) encoded: string = '';
-  #base64: Base64Service = inject(Base64Service);
+  #base64 = inject(Base64Service);
 
   content: string = '';
 

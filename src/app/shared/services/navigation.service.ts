@@ -7,7 +7,7 @@ import { Route, Router } from '@angular/router';
  */
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
-  #router: Router = inject(Router);
+  #router = inject(Router);
 
   getNavigationRoutes(): Route[] {
     return this.#router.config

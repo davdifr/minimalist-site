@@ -9,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpService {
-  #http: HttpClient = inject(HttpClient);
+  #http = inject(HttpClient);
 
   /**
    * Sends a GET request to the specified URL.

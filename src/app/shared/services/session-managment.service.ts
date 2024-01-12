@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, fromEvent } from 'rxjs';
+import { BehaviorSubject, fromEvent } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +37,7 @@ export class SessionManagementService {
   }
 
   private createNewSessionId(): string {
-    return Math.random().toString(36);
+    return Date.now().toString();
   }
 
   private initializeFirstSession(): void {

@@ -16,7 +16,7 @@ import { ThemeService } from '../../shared/services/theme.service';
   `,
 })
 export class ThemeToggleComponent {
-  #theme: ThemeService = inject(ThemeService);
+  #theme = inject(ThemeService);
 
   switchTheme(): void {
     this.#theme.toggleTheme();

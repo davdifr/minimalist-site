@@ -7,11 +7,9 @@ export const storageKey = 'theme';
 })
 export class ThemeService {
   #path: string = '/assets/themes';
-  #stylesheet: HTMLLinkElement | null = document.getElementById(
-    'theme'
-  ) as HTMLLinkElement;
+  #stylesheet = document.getElementById('theme') as HTMLLinkElement;
 
-  themeSignal: WritableSignal<string> = signal<string>('light');
+  themeSignal = signal<string>('light');
 
   constructor() {
     this.initializeThemeFromPreferences();
