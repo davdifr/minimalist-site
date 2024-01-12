@@ -22,7 +22,7 @@ export class ThemeService {
   }
 
   toggleTheme(): void {
-    this.themeSignal.update((prev) =>
+    this.themeSignal.update(() =>
       this.isDarkThemeActive() ? 'light' : 'dark'
     );
   }

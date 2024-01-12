@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { SessionManagementService } from './shared/services/session-managment.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,18 @@ import { RouterOutlet } from '@angular/router';
   imports: [CommonModule, RouterOutlet],
   template: `<router-outlet></router-outlet>`,
 })
-export class AppComponent {}
+export class AppComponent {
+  #sessionManagementService = inject(SessionManagementService);
+  #router = inject(Router);
+
+  ngOnInit(): void {
+    this.#sessionManagementService.storageEventSubject.subscribe(() => {
+      if (this.#sessionManagementService.isCurrentSessionActive()) {
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.#sessionManagementService.storageEventSubject.unsubscribe();
+  }
+}
