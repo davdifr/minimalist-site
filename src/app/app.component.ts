@@ -1,26 +1,33 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { SessionManagementService } from './shared/services/session-managment.service';
+import { ThemeService } from './shared/services/theme.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet],
-  template: `<router-outlet></router-outlet>`,
+  template: ` @if (isCurrentSession) {
+    <router-outlet></router-outlet>
+    } @else {
+    <h1>There is another active session</h1>
+    <p>Please close the other session and try again</p>
+    }`,
 })
 export class AppComponent {
-  #sessionManagementService = inject(SessionManagementService);
-  #router = inject(Router);
+  #session = inject(SessionManagementService);
+  #theme = inject(ThemeService);
+
+  isCurrentSession: boolean = true;
 
   ngOnInit(): void {
-    this.#sessionManagementService.storageEventSubject.subscribe(() => {
-      if (this.#sessionManagementService.isCurrentSessionActive()) {
-      }
+    this.#session.storageEventSubject.subscribe(() => {
+      this.isCurrentSession = this.#session.isCurrentSessionActive();
     });
   }
 
   ngOnDestroy(): void {
-    this.#sessionManagementService.storageEventSubject.unsubscribe();
+    this.#session.storageEventSubject.unsubscribe();
   }
 }

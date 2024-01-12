@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ThemeService } from '../../shared/services/theme.service';
 
 @Component({
   selector: 'app-not-found',
@@ -12,6 +11,4 @@ import { ThemeService } from '../../shared/services/theme.service';
       <a routerLink="/">Go Home</a>
     </p>`,
 })
-export class NotFoundComponent {
-  #theme: ThemeService = inject(ThemeService);
-}
+export class NotFoundComponent {}
