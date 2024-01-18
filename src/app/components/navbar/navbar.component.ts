@@ -16,6 +16,9 @@ import { Subject, takeUntil } from 'rxjs';
                 <a routerLink="{{ route.path }}" routerLinkActive="">{{
           route.data?.['title']
                 }}</a>
+                <span title="Press {{ $index + 1 }} to navigate to this page">
+                    [ {{ $index + 1 }} ]
+                </span>
             </li>
             }
         </ul>
