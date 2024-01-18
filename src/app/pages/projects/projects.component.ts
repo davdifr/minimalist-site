@@ -1,13 +1,4 @@
-import {
-    Component,
-    ComponentRef,
-    Injector,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewContainerRef,
-    inject,
-} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.state';
 import {
