@@ -14,10 +14,7 @@ export const routes: Routes = [
         children: [
             {
                 path: 'about',
-                loadComponent: () =>
-                    import('./pages/about/about.component').then(
-                        (c) => c.AboutComponent
-                    ),
+                loadComponent: () => import('./pages/about/about.component'),
                 data: {
                     title: 'About',
                     showInNavbar: true,
@@ -26,9 +23,7 @@ export const routes: Routes = [
             {
                 path: 'projects',
                 loadComponent: () =>
-                    import('./pages/projects/projects.component').then(
-                        (c) => c.ProjectsComponent
-                    ),
+                    import('./pages/projects/projects.component'),
                 data: {
                     title: 'Projects',
                     showInNavbar: true,

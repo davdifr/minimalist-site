@@ -24,7 +24,7 @@ import { RetryComponent } from '../../components/retry/retry.component';
     templateUrl: './projects.component.html',
     styleUrl: './projects.component.css',
 })
-export class ProjectsComponent implements OnInit {
+export default class ProjectsComponent implements OnInit {
     #store: Store<AppState> = inject(Store<AppState>);
     #alreadyLoadedOnce$: Observable<boolean> = this.#store.select(
         selectRepositoriesAlreadyLoadedOnce
